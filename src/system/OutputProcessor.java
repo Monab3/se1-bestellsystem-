@@ -27,7 +27,7 @@ final class OutputProcessor implements Components.OutputProcessor {
 		StringBuffer sbAllOrders = new StringBuffer("-------------");
 		StringBuffer sbLineItem = new StringBuffer();
 		long gesamtWertallerBestellungen = 0;
-		//long vat=0;
+		long vat=0;
 		for (Order ausgabe : orders) {
 			Customer customer = ausgabe.getCustomer();
 			String customerName = splitName(customer, customer.getFirstName() + " " + customer.getLastName());
@@ -48,11 +48,11 @@ final class OutputProcessor implements Components.OutputProcessor {
 				preisBestellung += (unit * preisArticle);
 				
 			}
-			/*if(printVAT) {
+			if(printVAT) {
 				vat = vat +orderProcessor.vat(preisBestellung, 1);
 				long v = orderProcessor.vat(preisBestellung, 1);
 				System.out.println(v+" "+preisBestellung+" "+preisBestellung);
-			}*/
+			}
 			gesamtWertallerBestellungen = gesamtWertallerBestellungen + preisBestellung;
 			System.out.println("gesamt: "+gesamtWertallerBestellungen);
 			String fmtPrice = fmtPrice(preisBestellung, "EUR", 14);
@@ -64,7 +64,6 @@ final class OutputProcessor implements Components.OutputProcessor {
 		sbAllOrders.append("\n").append(fmtLine("-------------", "-------------", printLineWidth)).append("\n")
 				.append(fmtLine("Gesamtwert aller Bestellungen:", fmtPriceFinal, printLineWidth));
 	if (printVAT) {
-			 long vat= orderProcessor.vat(gesamtWertallerBestellungen, 1);
 			String vatString = fmtPrice(vat, "EUR", 14);
 			sbAllOrders.append("\n").append(fmtLine("",vatString, printLineWidth));
 			

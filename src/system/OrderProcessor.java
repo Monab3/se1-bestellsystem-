@@ -32,17 +32,15 @@ final class OrderProcessor implements Components.OrderProcessor {
 
 	@Override
 	public long vat(long grossValue) {
-		long total; 
-		total = (grossValue/100)*19;
-		return total;
+		return vat(grossValue,1);
 	}
 
 	@Override
 	public long vat(long grossValue, int rateIndex) {
 		long total;
 		switch(rateIndex) {
-		case 1: total = (grossValue/100)*16; return total;
-		case 2: total = (grossValue/100)*7;  return total;
+		case 1: total = (long) Math.round(((double) grossValue/1.19*0.19)); return total;
+		case 2: total = (long) Math.round(((double) grossValue/1.07*0.07)); return total;
 		default: return 0;
 		}
 	}
