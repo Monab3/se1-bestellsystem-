@@ -61,7 +61,12 @@ final public class RawDataFactory {
 
 			@Override
 			public Customer createCustomer( String id, String name, String contact ) {
-				return new Customer( id, name, contact );
+				String realName[] = name.split(" ");
+				Customer c = new Customer( id, name, contact );
+				c.setFirstName(realName[0]);
+				c.setLastName(realName[1]);
+				return c;
+				
 			}
 
 			@Override

@@ -13,7 +13,10 @@ private final List<OrderItem> items;
 
 Order(long id, Date date2,Customer customer) {
 this.id = id;
-this.date= date2;
+if (date2 == null)
+this.date= new Date();
+else 
+	this.date = date2;
 this.customer = customer;
 items = new ArrayList<>();
 }
@@ -30,20 +33,23 @@ public Customer getCustomer() {
 public Iterable<OrderItem> getItems(){
 	return items;
 }
-/*public int count() {
+public int count() {
 	return items.size();
-}*/
-public Order addItem(OrderItem item) {
-	items.add(item);
-	return this;
 }
-/*public Order removeItem(OrderItem item) {
+public Order addItem(OrderItem item) {
+ if(items.contains(item)|| item == null)
+	return this;
+ else {
+	 items.add(item);
+ return this;}
+}
+public Order removeItem(OrderItem item) {
 	items.remove(item);
 	return this;
 }
 public Order clearItems() {
 	items.clear();
 	return this;
-}*/
+}
 
 }
